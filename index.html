@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>NEXTATION – Present Continuous Blocks (Subject · be · verb‑ing · object)</title>
+  <style>
+    :root {
+      /* NEXTATION WEBSITE — COLOUR SYSTEM */
+      --bg-main: #02030b;
+      --bg-gradient: radial-gradient(circle at top, #1c1f3b 0%, #050716 45%, #02030b 100%);
+      /* Surfaces / Cards */
+      --card-bg: rgba(15, 18, 40, 0.92);
+      --card-soft-bg: rgba(18, 21, 50, 0.88);
+      /* Neon accents */
+      --accent-cyan: #4ef2ff;
+      --accent-pink: #ff2f92;
+      --accent-green: #4dff9b;
+      --accent-yello: #ffe25f;
+      --accent-purple: #aa5dff;
+      /* Text and borders */
+      --muted: rgba(255,255,255,0.65);
+      --border-glow: rgba(120,120,255,0.45);
+      /* Shadows */
+      --shadow-strong: 0 0 36px rgba(130,80,255,0.6);
+      --shadow-soft: 0 0 20px rgba(0,0,0,0.65);
+      /* Radii and transitions */
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 10px;
+      --transition-fast: 0.18s ease-out;
+      --transition-med: 0.28s ease-out;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      background:var(--bg-gradient);
+      color:#fff;
+      min-height:100vh;
+      padding:24px;
+      display:flex;
+      justify-content:center;
+    }
+    .app{max-width:1100px;width:100%;}
+
+    /* HEADER */
+    .neon-header{
+      position:relative;
+      padding:18px 22px 14px;
+      border-radius:var(--radius-lg);
+      background:rgba(3,5,20,0.9);
+      box-shadow:var(--shadow-soft);
+      border:1px solid var(--border-glow);
+      margin-bottom:20px;
+      overflow:hidden;
+    }
+    .neon-header::before{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      background:linear-gradient(90deg,#00f5ff,#ff2f92,#ffe25f,#4dff9b);
+      opacity:0.5;
+      mix-blend-mode:screen;
+      pointer-events:none;
+      z-index:-1;
+    }
+    .header-main{
+      display:flex;
+      align-items:center;
+      gap:18px;
+    }
+    .teacher-orb{
+      width:64px;
+      height:64px;
+      border-radius:50%;
+      background:radial-gradient(circle,#ffffff 0%,#00fff0 35%,#ff2f92 70%,#02030b 100%);
+      box-shadow:0 0 24px rgba(0,255,255,0.7),0 0 32px rgba(255,0,160,0.55);
+      flex-shrink:0;
+    }
+    .brand-title{
+      font-size:1.4rem;
+      background:linear-gradient(90deg,#4ef2ff,#ff2f92);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+      font-weight:700;
+      letter-spacing:0.06em;
+      text-transform:uppercase;
+    }
+    .brand-sub{
+      color:var(--muted);
+      font-size:0.9rem;
+      margin-top:2px;
+    }
+    .lesson-title{
+      margin-top:10px;
+      font-size:1.25rem;
+      color:var(--accent-cyan);
+      text-shadow:0 0 12px rgba(78,242,255,0.5);
+    }
+    .controls-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:10px;
+      font-size:0.9rem;
+    }
+    .small-btn{
+      padding:6px 12px;
+      border-radius:999px;
+      border:1px dashed rgba(255,255,255,0.35);
+      background:transparent;
+      color:#fff;
+      cursor:pointer;
+      font-size:0.8rem;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      transition:transform var(--transition-fast),box-shadow var(--transition-fast),border-color var(--transition-fast),background var(--transition-fast);
+    }
+    .small-btn:hover{
+      transform:scale(1.03);
+      border-color:var(--accent-cyan);
+      box-shadow:0 0 16px rgba(78,242,255,0.5);
+      background:rgba(4,10,40,0.9);
+    }
+
+    /* TABS */
+    .tabs{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin:18px 0 16px;
+    }
+    .tab{
+      position:relative;
+      padding:9px 14px;
+      border-radius:var(--radius-md);
+      background:radial-gradient(circle at top,rgba(255,255,255,0.09),rgba(7,10,28,0.96));
+      border:1px solid rgba(130,140,200,0.4);
+      color:#fff;
+      font-size:0.9rem;
+      cursor:pointer;
+      transition:all var(--transition-fast);
+    }
+    .tab span.icon{margin-right:6px;}
+    .tab:hover{
+      border-color:rgba(120,120,255,0.6);
+      box-shadow:0 0 20px rgba(120,120,255,0.35);
+    }
+    .tab.active{
+      background:radial-gradient(circle at top,rgba(255,255,255,0.15),rgba(21,13,51,0.98));
+      border-color:rgba(103,255,196,0.9);
+      box-shadow:0 0 24px rgba(79,255,204,0.55);
+    }
+    .tab.completed::after{
+      content:"✓";
+      position:absolute;
+      top:-6px;
+      right:-6px;
+      width:18px;
+      height:18px;
+      border-radius:50%;
+      background:var(--accent-green);
+      color:#02030b;
+      font-size:0.7rem;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow:0 0 10px rgba(77,255,179,0.9);
+    }
+
+    /* CARD */
+    .card{
+      position:relative;
+      border-radius:var(--radius-lg);
+      background:linear-gradient(135deg, rgba(13,16,40,0.98), rgba(6,8,26,0.98));
+      padding:20px 22px 22px;
+      border:1px solid rgba(120,120,255,0.32);
+      box-shadow:var(--shadow-soft);
+      overflow:hidden;
+      min-height:260px;
+    }
+    .card::before{
+      content:"";
+      position:absolute;
+      top:-40%;
+      left:-20%;
+      width:280px;
+      height:280px;
+      background:radial-gradient(circle at top left, rgba(87,57,255,0.35), transparent 58%);
+      pointer-events:none;
+    }
+    .card-inner{position:relative;z-index:1;}
+
+    h2.section-title{
+      font-size:1.1rem;
+      color:var(--accent-cyan);
+      margin-bottom:6px;
+    }
+    p.section-sub{
+      font-size:0.92rem;
+      color:var(--muted);
+      margin-bottom:12px;
+      line-height:1.45;
+    }
+    .pill-tag{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.18);
+      font-size:0.75rem;
+      color:var(--muted);
+      margin-right:6px;
+      margin-bottom:6px;
+    }
+    .pill-tag span.dot{
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:var(--accent-cyan);
+    }
+
+    /* Visual sentence blocks */
+    .block-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:10px 0 14px;
+    }
+    .block{
+      background:var(--card-soft-bg);
+      border-radius:var(--radius-md);
+      padding:8px 10px;
+      border:1px solid rgba(165,170,255,0.45);
+      min-width:90px;
+      text-align:center;
+      box-shadow:0 0 12px rgba(40,80,255,0.35);
+    }
+    .block-label{
+      display:block;
+      font-size:0.7rem;
+      color:var(--muted);
+      margin-bottom:4px;
+      text-transform:uppercase;
+      letter-spacing:0.06em;
+    }
+    .block-value{
+      font-size:0.95rem;
+      font-weight:600;
+    }
+    .verb-be{
+      color:var(--accent-yello);
+      font-weight:700;
+    }
+    .verb-ing{
+      color:var(--accent-pink);
+      font-weight:700;
+    }
+
+    .example-en{
+      font-size:1rem;
+      margin-bottom:4px;
+    }
+    .example-pt{
+      font-size:0.9rem;
+      color:var(--muted);
+      margin-bottom:8px;
+    }
+
+    .step-list{
+      list-style:none;
+      font-size:0.9rem;
+      margin:8px 0 10px;
+    }
+    .step-list li{
+      margin-bottom:4px;
+    }
+
+    .play-btn{
+      margin-top:8px;
+      padding:6px 12px;
+      border-radius:999px;
+      border:none;
+      background:linear-gradient(90deg,#4ef2ff,#ff2f92);
+      color:#02030b;
+      font-size:0.85rem;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      box-shadow:0 0 16px rgba(78,242,255,0.55);
+      transition:transform var(--transition-fast),box-shadow var(--transition-fast);
+    }
+    .play-btn:hover{
+      transform:translateY(-1px);
+      box-shadow:0 0 22px rgba(255,47,146,0.7);
+    }
+
+    /* Practice area */
+    .practice-select{
+      width:100%;
+      padding:6px 8px;
+      border-radius:var(--radius-md);
+      border:1px solid rgba(160,160,255,0.5);
+      background:rgba(8,10,32,0.9);
+      color:#fff;
+      margin-bottom:8px;
+      font-size:0.9rem;
+    }
+    .practice-input{
+      width:100%;
+      padding:8px 10px;
+      border-radius:var(--radius-md);
+      border:1px solid rgba(160,160,255,0.6);
+      background:rgba(5,7,25,0.95);
+      color:#fff;
+      font-size:0.95rem;
+      margin-bottom:8px;
+    }
+    .feedback{
+      font-size:0.9rem;
+      margin-top:4px;
+      min-height:18px;
+    }
+
+    .primary-btn{
+      padding:8px 14px;
+      border-radius:999px;
+      border:none;
+      background:linear-gradient(90deg,#4ef2ff,#ff2f92);
+      color:#02030b;
+      font-weight:600;
+      cursor:pointer;
+      font-size:0.9rem;
+      box-shadow:0 0 16px rgba(78,242,255,0.6);
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      transition:transform var(--transition-fast),box-shadow var(--transition-fast);
+    }
+    .primary-btn:hover{
+      transform:translateY(-1px);
+      box-shadow:0 0 22px rgba(255,47,146,0.75);
+    }
+    .secondary-btn{
+      padding:8px 14px;
+      border-radius:999px;
+      border:1px solid rgba(180,180,255,0.6);
+      background:transparent;
+      color:#fff;
+      cursor:pointer;
+      font-size:0.9rem;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      transition:transform var(--transition-fast),border-color var(--transition-fast),box-shadow var(--transition-fast);
+    }
+    .secondary-btn:hover{
+      transform:translateY(-1px);
+      border-color:var(--accent-cyan);
+      box-shadow:0 0 12px rgba(120,120,255,0.5);
+    }
+
+    .footer-nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-top:14px;
+      gap:12px;
+    }
+    .export-bar{
+      margin-top:10px;
+      font-size:0.85rem;
+      color:var(--muted);
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+    }
+    .footer-meta{
+      margin-top:10px;
+      font-size:0.8rem;
+      color:var(--muted);
+    }
+    .footer-meta .brand{
+      color:var(--accent-cyan);
+      font-weight:600;
+    }
+
+    @media (max-width:700px){
+      body{padding:14px;}
+      .card{padding:16px;}
+      .header-main{flex-direction:row;align-items:flex-start;}
+      .footer-nav{flex-direction:column;}
+    }
+
+    @media print{
+      body{background:#fff;color:#000;}
+      .neon-header,.tabs,.controls-row,.footer-nav,.export-bar{display:none!important;}
+      .card{
+        box-shadow:none;
+        border:1px solid #ccc;
+        background:#fff;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <header class="neon-header">
+    <div class="header-main">
+      <div class="teacher-orb"></div>
+      <div>
+        <div class="brand-title">NEXTATION</div>
+        <div class="brand-sub">
+          Present Continuous – Subject · be · verb‑ing · object, para cérebro brasileiro com TDAH. ✨
+        </div>
+        <div class="lesson-title">
+          “Estou fazendo agora” → I am doing / She is doing / We are doing
+        </div>
+      </div>
+    </div>
+    <div class="controls-row">
+      <button class="small-btn" onclick="window.print()">
+        📄 Exportar em PDF (somente conteúdo)
+      </button>
+      <span style="font-size:0.8rem;color:var(--muted);">
+        Dica: 1 tempo por vez; hoje só <strong>am / is / are + verb‑ing</strong>.
+      </span>
+    </div>
+  </header>
+
+  <nav class="tabs" aria-label="Lesson tabs">
+    <button class="tab active" data-tab="overview" onclick="showTab('overview')" aria-selected="true">
+      <span class="icon">🚀</span> Overview
+    </button>
+    <button class="tab" data-tab="i" onclick="showTab('i')" aria-selected="false">
+      <span class="icon">🧠</span> I am studying English
+    </button>
+    <button class="tab" data-tab="she" onclick="showTab('she')" aria-selected="false">
+      <span class="icon">👩‍🍳</span> She is cooking dinner
+    </button>
+    <button class="tab" data-tab="we" onclick="showTab('we')" aria-selected="false">
+      <span class="icon">👥</span> We are playing football
+    </button>
+    <button class="tab" data-tab="they" onclick="showTab('they')" aria-selected="false">
+      <span class="icon">📺</span> They are watching TV
+    </button>
+    <button class="tab" data-tab="he" onclick="showTab('he')" aria-selected="false">
+      <span class="icon">📖</span> He is reading a book
+    </button>
+    <button class="tab" data-tab="practice" onclick="showTab('practice')" aria-selected="false">
+      <span class="icon">📝</span> Practice
+    </button>
+  </nav>
+
+  <main>
+    <section class="card">
+      <!-- OVERVIEW -->
+      <div class="card-inner" id="tab-overview">
+        <h2 class="section-title">Present Continuous – visão geral</h2>
+        <p class="section-sub">
+          Em português: <strong>“Eu estou estudando”</strong>, <strong>“Ela está cozinhando”</strong>.  
+          Em inglês: usamos <strong>am / is / are + verbo com -ing</strong>.
+        </p>
+        <div class="pill-tag"><span class="dot"></span> Estrutura visual (sempre igual):</div>
+        <div class="block-row">
+          <div class="block">
+            <span class="block-label">Subject</span>
+            <span class="block-value">I / You / He / She / We / They</span>
+          </div>
+          <div class="block">
+            <span class="block-label">be + verb‑ing</span>
+            <span class="block-value"><span class="verb-be">am / is / are</span> + <span class="verb-ing">verb‑ing</span></span>
+          </div>
+          <div class="block">
+            <span class="block-label">Object</span>
+            <span class="block-value">English, dinner, football, TV, a book…</span>
+          </div>
+        </div>
+
+        <p class="section-sub">
+          Compare na sua cabeça:
+        </p>
+        <p class="example-en">I study English. (hábito) → Present Simple</p>
+        <p class="example-en"><strong>I am studying English.</strong> (agora) → <strong>Present Continuous</strong></p>
+
+        <p class="section-sub">
+          Neste módulo vamos treinar 5 frases:
+        </p>
+        <ul class="step-list">
+          <li>1️⃣ I am studying English.</li>
+          <li>2️⃣ She is cooking dinner.</li>
+          <li>3️⃣ We are playing football.</li>
+          <li>4️⃣ They are watching TV.</li>
+          <li>5️⃣ He is reading a book.</li>
+        </ul>
+        <p class="section-sub">
+          Em cada aba, você vê os blocos, escuta a frase e entende “por que é assim”.
+        </p>
+      </div>
+
+      <!-- I AM STUDYING ENGLISH -->
+      <div class="card-inner" id="tab-i" style="display:none;">
+        <h2 class="section-title">1 – I am studying English.</h2>
+        <p class="section-sub">
+          Português: <strong>Eu estou estudando inglês.</strong>  
+          Situação: agora mesmo, você está no curso, focando na frase. 🧠
+        </p>
+
+        <div class="block-row">
+          <div class="block">
+            <span class="block-label">Subject</span>
+            <span class="block-value">I</span>
+          </div>
+          <div class="block">
+            <span class="block-label">be + verb‑ing</span>
+            <span class="block-value"><span class="verb-be">am</span> <span class="verb-ing">studying</span></span>
+          </div>
+          <div class="block">
+            <span class="block-label">Object</span>
+            <span class="block-value">English</span>
+          </div>
+        </div>
+
+        <p class="example-en"><strong>I am studying English.</strong></p>
+        <p class="example-pt">Eu estou estudando inglês.</p>
+
+        <ul class="step-list">
+          <li><strong>Step 1:</strong> Subject = <strong>I</strong> → pessoa que fala.</li>
+          <li><strong>Step 2:</strong> “to be” no presente com I = <strong>am</strong>.</li>
+          <li><strong>Step 3:</strong> Verbo principal com <strong>-ing</strong> → <strong>study → studying</strong>.</li>
+        </ul>
+
+        <p class="section-sub">
+          Regra-chave (guarda na cabeça):  
+          <strong>I → am</strong> + verb‑ing. Sempre.
+        </p>
+
+        <button class="play-btn" onclick="speak('I am studying English.')">
+          🔊 Play – I am studying English
+        </button>
+      </div>
+
+      <!-- SHE IS COOKING DINNER -->
+      <div class="card-inner" id="tab-she" style="display:none;">
+        <h2 class="section-title">2 – She is cooking dinner.</h2>
+        <p class="section-sub">
+          Português: <strong>Ela está cozinhando o jantar.</strong>  
+          Cena: sua irmã na cozinha, agora, mexendo nas panelas. 🍳
+        </p>
+
+        <div class="block-row">
+          <div class="block">
+            <span class="block-label">Subject</span>
+            <span class="block-value">She</span>
+          </div>
+          <div class="block">
+            <span class="block-label">be + verb‑ing</span>
+            <span class="block-value"><span class="verb-be">is</span> <span class="verb-ing">cooking</span></span>
+          </div>
+          <div class="block">
+            <span class="block-label">Object</span>
+            <span class="block-value">dinner</span>
+          </div>
+        </div>
+
+        <p class="example-en"><strong>She is cooking dinner.</strong></p>
+        <p class="example-pt">Ela está cozinhando o jantar.</p>
+
+        <ul class="step-list">
+          <li><strong>Step 1:</strong> Subject = <strong>she</strong> (ela).</li>
+          <li><strong>Step 2:</strong> “to be” com he/she/it = <strong>is</strong>.</li>
+          <li><strong>Step 3:</strong> Verbo com -ing → <strong>cook → cooking</strong>.</li>
+        </ul>
+
+        <p class="section-sub">
+          Erro típico de brasileiro:
+        </p>
+        <p class="example-en"><span style="color:#ff8aa8;">✗ She cooking dinner.</span> (falta o “is”)</p>
+        <p class="example-en"><span style="color:#4dff9b;">✓ She <strong>is</strong> cooking dinner.</span></p>
+
+        <button class="play-btn" onclick="speak('She is cooking dinner.')">
+          🔊 Play – She is cooking dinner
+        </button>
+      </div>
+
+      <!-- WE ARE PLAYING FOOTBALL -->
+      <div class="card-inner" id="tab-we" style="display:none;">
+        <h2 class="section-title">3 – We are playing football.</h2>
+        <p class="section-sub">
+          Português: <strong>Nós estamos jogando futebol.</strong>  
+          Cena: você e seus amigos no campo agora. ⚽
+        </p>
+
+        <div class="block-row">
+          <div class="block">
+            <span class="block-label">Subject</span>
+            <span class="block-value">We</span>
+          </div>
+          <div class="block">
+            <span class="block-label">be + verb‑ing</span>
+            <span class="block-value"><span class="verb-be">are</span> <span class="verb-ing">playing</span></span>
+          </div>
+          <div class="block">
+            <span class="block-label">Object</span>
+            <span class="block-value">football</span>
+          </div>
+        </div>
+
+        <p class="example-en"><strong>We are playing football.</strong></p>
+        <p class="example-pt">Nós estamos jogando futebol.</p>
+
+        <ul class="step-list">
+          <li><strong>Step 1:</strong> Subject = <strong>we</strong> (nós).</li>
+          <li><strong>Step 2:</strong> “to be” com we/you/they = <strong>are</strong>.</li>
+          <li><strong>Step 3:</strong> Verbo + -ing → <strong>play → playing</strong>.</li>
+        </ul>
+
+        <p class="section-sub">
+          Não diga:
+        </p>
+        <p class="example-en"><span style="color:#ff8aa8;">✗ We playing football.</span></p>
+        <p class="example-en"><span style="color:#4dff9b;">✓ We <strong>are</strong> playing football.</span></p>
+
+        <button class="play-btn" onclick="speak('We are playing football.')">
+          🔊 Play – We are playing football
+        </button>
+      </div>
+
+      <!-- THEY ARE WATCHING TV -->
+      <div class="card-inner" id="tab-they" style="display:none;">
+        <h2 class="section-title">4 – They are watching TV.</h2>
+        <p class="section-sub">
+          Português: <strong>Eles estão assistindo TV.</strong>  
+          Cena: seus pais no sofá, agora, maratonando série. 📺
+        </p>
+
+        <div class="block-row">
+          <div class="block">
+            <span class="block-label">Subject</span>
+            <span class="block-value">They</span>
+          </div>
+          <div class="block">
+            <span class="block-label">be + verb‑ing</span>
+            <span class="block-value"><span class="verb-be">are</span> <span class="verb-ing">watching</span></span>
+          </div>
+          <div class="block">
+            <span class="block-label">Object</span>
+            <span class="block-value">TV</span>
+          </div>
+        </div>
+
+        <p class="example-en"><strong>They are watching TV.</strong></p>
+        <p class="example-pt">Eles estão assistindo TV.</p>
+
+        <ul class="step-list">
+          <li><strong>Step 1:</strong> Subject = <strong>they</strong> (eles).</li>
+          <li><strong>Step 2:</strong> “to be” com they = <strong>are</strong>.</li>
+          <li><strong>Step 3:</strong> Verbo + -ing → <strong>watch → watching</strong>.</li>
+        </ul>
+
+        <p class="section-sub">
+          Erro comum:
+        </p>
+        <p class="example-en"><span style="color:#ff8aa8;">✗ They watching TV.</span></p>
+        <p class="example-en"><span style="color:#4dff9b;">✓ They <strong>are</strong> watching TV.</span></p>
+
+        <button class="play-btn" onclick="speak('They are watching TV.')">
+          🔊 Play – They are watching TV
+        </button>
+      </div>
+
+      <!-- HE IS READING A BOOK -->
+      <div class="card-inner" id="tab-he" style="display:none;">
+        <h2 class="section-title">5 – He is reading a book.</h2>
+        <p class="section-sub">
+          Português: <strong>Ele está lendo um livro.</strong>  
+          Cena: seu amigo sentado no sofá, agora, concentrado no Kindle. 📚
+        </p>
+
+        <div class="block-row">
+          <div class="block">
+            <span class="block-label">Subject</span>
+            <span class="block-value">He</span>
+          </div>
+          <div class="block">
+            <span class="block-label">be + verb‑ing</span>
+            <span class="block-value"><span class="verb-be">is</span> <span class="verb-ing">reading</span></span>
+          </div>
+          <div class="block">
+            <span class="block-label">Object</span>
+            <span class="block-value">a book</span>
+          </div>
+        </div>
+
+        <p class="example-en"><strong>He is reading a book.</strong></p>
+        <p class="example-pt">Ele está lendo um livro.</p>
+
+        <ul class="step-list">
+          <li><strong>Step 1:</strong> Subject = <strong>he</strong> (ele).</li>
+          <li><strong>Step 2:</strong> “to be” com he = <strong>is</strong>.</li>
+          <li><strong>Step 3:</strong> Verbo + -ing → <strong>read → reading</strong>.</li>
+        </ul>
+
+        <p class="section-sub">
+          Gravando na cabeça:  
+          <strong>He / She / It → is + verb‑ing.</strong>
+        </p>
+
+        <button class="play-btn" onclick="speak('He is reading a book.')">
+          🔊 Play – He is reading a book
+        </button>
+      </div>
+
+      <!-- PRACTICE TAB -->
+      <div class="card-inner" id="tab-practice" style="display:none;">
+        <h2 class="section-title">Practice – monta sua própria frase ING</h2>
+        <p class="section-sub">
+          Agora é você que monta. Vamos usar a mesma lógica de blocos:  
+          <strong>Subject + am/is/are + verb‑ing + object</strong>.
+        </p>
+
+        <div class="pill-tag">
+          <span class="dot"></span> 1. Escolha o Subject (quem?)  
+        </div>
+        <select id="p-subject" class="practice-select">
+          <option value="">-- choose subject --</option>
+          <option value="I">I</option>
+          <option value="She">She</option>
+          <option value="He">He</option>
+          <option value="We">We</option>
+          <option value="They">They</option>
+        </select>
+
+        <div class="pill-tag">
+          <span class="dot"></span> 2. Escolha o verbo (ação)
+        </div>
+        <select id="p-verb" class="practice-select">
+          <option value="">-- choose verb --</option>
+          <option value="study">study</option>
+          <option value="cook">cook</option>
+          <option value="play">play</option>
+          <option value="watch">watch</option>
+          <option value="read">read</option>
+        </select>
+
+        <div class="pill-tag">
+          <span class="dot"></span> 3. Escolha o object (o quê?)
+        </div>
+        <select id="p-object" class="practice-select">
+          <option value="">-- choose object --</option>
+          <option value="English">English</option>
+          <option value="dinner">dinner</option>
+          <option value="football">football</option>
+          <option value="TV">TV</option>
+          <option value="a book">a book</option>
+        </select>
+
+        <p class="section-sub">
+          Agora escreva sua frase completa aqui embaixo.  
+          Lembre da regra: <strong>I → am</strong>, <strong>He/She → is</strong>, <strong>We/They → are</strong>.
+        </p>
+        <input id="p-sentence" class="practice-input" placeholder="Ex.: She is cooking dinner.">
+
+        <button class="primary-btn" onclick="checkPractice()">
+          ✅ Check my sentence
+        </button>
+        <div id="p-feedback" class="feedback"></div>
+
+        <p class="section-sub" style="margin-top:10px;">
+          Quando der <span style="color:#4dff9b;">verde</span>, repete a frase 3 vezes em voz alta.  
+          A ideia é o cérebro marcar: “é SEMPRE Subject + am/is/are + verb‑ing + object”.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <div class="footer-nav">
+    <button class="secondary-btn" onclick="prevTab()">⬅️ Back</button>
+    <button class="primary-btn" onclick="nextTab()">Next ➡️</button>
+  </div>
+
+  <div class="export-bar">
+    <span>📋 Copy to spreadsheet:</span>
+    <button class="small-btn" onclick="copyToSpreadsheet()">Copy lesson text</button>
+    <span>• 📄 PDF: use “Exportar em PDF” no topo (browser print).</span>
+  </div>
+
+  <footer class="footer-meta">
+    Created for <span class="brand">NEXTATION</span> – Present Continuous, one glowing block at a time. É nosso. 🚀
+  </footer>
+</div>
+
+<script>
+  const tabOrder = ['overview','i','she','we','they','he','practice'];
+
+  function showTab(id){
+    document.querySelectorAll('.card-inner').forEach(el => el.style.display='none');
+    const target = document.getElementById('tab-'+id);
+    if(target) target.style.display='block';
+    document.querySelectorAll('.tab').forEach(t=>{
+      const isActive = t.dataset.tab === id;
+      t.classList.toggle('active', isActive);
+      if(isActive) t.classList.add('completed');
+      t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
+  }
+
+  function nextTab(){
+    const active = document.querySelector('.tab.active');
+    if(!active) return;
+    const current = active.getAttribute('data-tab');
+    const idx = tabOrder.indexOf(current);
+    if(idx < tabOrder.length-1) showTab(tabOrder[idx+1]);
+  }
+
+  function prevTab(){
+    const active = document.querySelector('.tab.active');
+    if(!active) return;
+    const current = active.getAttribute('data-tab');
+    const idx = tabOrder.indexOf(current);
+    if(idx > 0) showTab(tabOrder[idx-1]);
+  }
+
+  function speak(text){
+    if(!('speechSynthesis' in window)){
+      alert('Your browser does not support SpeechSynthesis audio.');
+      return;
+    }
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-US';
+    u.rate = 0.98;
+    u.pitch = 1.0;
+    window.speechSynthesis.speak(u);
+  }
+
+  function beForm(subject){
+    const s = subject.toLowerCase();
+    if(s === 'i') return 'am';
+    if(s === 'he' || s === 'she' || s === 'it') return 'is';
+    return 'are'; // we, they
+  }
+
+  function makeIng(verb){
+    // super simple ING rules, enough for these verbs
+    if(verb === 'study') return 'studying';
+    if(verb === 'cook') return 'cooking';
+    if(verb === 'play') return 'playing';
+    if(verb === 'watch') return 'watching';
+    if(verb === 'read') return 'reading';
+    return verb + 'ing';
+  }
+
+  function normalize(str){
+    return str
+      .toLowerCase()
+      .replace(/’/g,"'")
+      .replace(/\s+/g,' ')
+      .trim();
+  }
+
+  function checkPractice(){
+    const subj = document.getElementById('p-subject').value;
+    const verb = document.getElementById('p-verb').value;
+    const obj  = document.getElementById('p-object').value;
+    const sentenceInput = document.getElementById('p-sentence').value;
+    const feedback = document.getElementById('p-feedback');
+
+    if(!subj || !verb || !obj){
+      feedback.textContent = 'First choose subject, verb and object. Primeiro escolhe tudo nos menus.';
+      feedback.style.color = '#ffe25f';
+      return;
+    }
+    if(!sentenceInput.trim()){
+      feedback.textContent = 'Now write your full sentence. Agora escreve sua frase completa.';
+      feedback.style.color = '#ffe25f';
+      return;
+    }
+
+    const be = beForm(subj);
+    const ing = makeIng(verb);
+    const target = `${subj} ${be} ${ing} ${obj}.`;
+    const user = normalize(sentenceInput.replace(/\.+
+$
+/,'') + '.');
+    const normTarget = normalize(target);
+
+    if(user === normTarget){
+      feedback.textContent = `Perfect! "${target}" – Subject + ${be} + ${ing} + ${obj}. Uma vez por todas ✅`;
+      feedback.style.color = '#4dff9b';
+    }else{
+      feedback.textContent = `Not yet. Think: ${target}  (confere se tem am/is/are e -ing).`;
+      feedback.style.color = '#ff8aa8';
+    }
+  }
+
+  function copyToSpreadsheet(){
+    const text = collectLessonText();
+    if(!navigator.clipboard){
+      alert('Your browser does not allow automatic copying. Please select and copy manually.');
+      return;
+    }
+    navigator.clipboard.writeText(text).then(()=>{
+      alert('Lesson content copied! Paste (Ctrl+V) into your spreadsheet.');
+    }).catch(()=>{
+      alert('Could not copy automatically. Please select and copy manually.');
+    });
+  }
+
+  function collectLessonText(){
+    const blocks = [];
+    document.querySelectorAll('.card-inner').forEach(inner=>{
+      const clone = inner.cloneNode(true);
+      clone.querySelectorAll('button').forEach(b=>b.remove());
+      clone.querySelectorAll('.pill-tag').forEach(p=>p.remove());
+      blocks.push(clone.innerText.trim());
+    });
+    return blocks.join('\n\n-----------------------------\n\n');
+  }
+</script>
+</body>
+</html>
